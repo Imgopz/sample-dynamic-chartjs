@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Dynamic Chart Js</title>
+  </head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Dynamic Chart</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body class="bg-warning py-5">
+	<div class="col-md-6 offset-3">
+		<div class="card">
+			<div class="card-body">
+				<h1>Dynamic Chart JS</h1>
+				<button class="btn btn-success" onclick="updateChart()">Update</button>
+				<!-- <button class="btn btn-info" onclick="addValue()">+1</button> -->
+				<button class="btn btn-info" onclick="reset()">Reset</button>
+				<button class="btn btn-danger" onclick="rmValue()">Reverse</button>
+			</div>
+			<div class="card-body">
+				<canvas id="myChart"></canvas>
+			</div>
+		</div>
+	</div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+	
+	<script>
+		var oldData = [0, 10, 5, 2, 20, 30, 45];
+		var newData = [10,20,30,55,45,33,24];
+		var oldData1 = [2, 10, 15, 20, 12, 3, 15];
+		var newData1 = [10,2,13,20,35,45,33];
+		var ctx = document.getElementById('myChart').getContext('2d');
+		var chart = new Chart(ctx, {
+		// The type of chart we want to create
+		type: 'line',
+
+		// The data for our dataset
+		data: {
+			labels: ["January", "February", "March", "April", "May", "June", "July"],
+			datasets: [{
+				label: "My First dataset",
+				//backgroundColor: 'rgb(0, 99, 132)',
+				borderColor: 'rgb(0, 99, 132)',
+				data: oldData,
+			},{
+				label: "My Second dataset",
+				//backgroundColor: 'rgb(0, 99, 132)',
+				borderColor: 'rgb(0, 200, 0)',
+				data: oldData1,
+			}],
+		},
+
+		// Configuration options go here
+		options: {}
+		});
+		//pop: removes end value of array
+		//shift: removes starting value of array
+		//unshift: adds value in the beginning of array
+		//push: adds value at the end of the array
+		//reverse: reverse the dataset
+		//https://www.youtube.com/watch?v=4jfcxxTT8H0
+		
+		function updateChart(){
+			chart.data.datasets[0].data = newData;
+			chart.data.datasets[1].data = newData1;
+			//chart.data.labels = ["August","September","October","November","December"];
+			chart.update();
+		}
+		
+		function addValue(){
+			chart.data.datasets[0].data.unshift(50);
+			//chart.data.datasets[0].data.push(999);
+			chart.data.labels.push("January");
+			chart.update();
+		}
+		
+		function rmValue(){
+			chart.data.datasets[0].data.reverse();
+			chart.data.datasets[1].data.reverse();
+			//chart.data.datasets[0].data.push(999);
+			//chart.data.labels.push("January");
+			chart.update();
+		}
+		
+		function reset(){
+			chart.data.datasets[0].data = oldData;
+			chart.data.datasets[1].data = oldData1;
+			//chart.data.datasets[0].data.push(999);
+			//chart.data.labels.push("January");
+			chart.update();
+		}
+		
+	</script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+  </body>
+</html>
